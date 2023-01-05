@@ -12,7 +12,7 @@ import datetime
 def get_data():
     df = pd.read_csv(os.path.join('C:\Jalal\GitHub\demo_projects\streamlit_skillnet\data\demo_member_profiles.csv'))
     # df = pd.read_csv(('https://raw.githubusercontent.com/jalaljahir/demo_projects/main/streamlit_stock_NVDA/data/NVidia_stock_history.csv'))
-    df = df[['Name', 'City', 'State', 'Company', 'Industry', 'Years of Experience', 'Skills']]
+    df = df[['Name', 'City', 'State', 'Company', 'Industry', 'Years of Experience', 'Skills', 'LinkedIn Profile']]
 
     cols = ['Name', 'City', 'State', 'Company', 'Industry', 'Years of Experience']
     # df.loc[df.duplicated(subset=cols), cols ] = ''
@@ -83,24 +83,25 @@ st.sidebar.markdown('# Filter Selection')
 # @st.cache
 df = get_data()
 
-ind = sorted(df['Industry'].unique())
-ind_choice = st.sidebar.selectbox('Select your industry:', ind) #default = ind)
+# ind = sorted(df['Industry'].unique())
+# ind_choice = st.sidebar.selectbox('Select your industry:', ind) #default = ind)
 
-skills = sorted(df['Skills'].loc[df['Industry'].isin([ind_choice])].unique())
+# skills = sorted(df['Skills'].loc[df['Industry'].isin([ind_choice])].unique())
 
 # skills = skills.sort()
-print (skills)
+# print (skills)
 
 # years = df['Years of Experience']
 # city = df['City']
 # state = df['State']
 
-skills_choice = st.sidebar.selectbox(' ', skills)
+skills = sorted(df['Skills'].unique())
+skills_choice = st.sidebar.selectbox('Select Skill ', skills)
 # # years_choice = st.sidebar.selectbox('', years)
 # # city_choice = st.sidebar.selectbox('', city)
 # # state_choice = st.sidebar.selectbox('', state)
 
-df = df[df['Industry'].isin([ind_choice])]
+# df = df[df['Industry'].isin([ind_choice])]
 df = df[df['Skills'].isin([skills_choice])]
 # # df = df[df['cost'] < price_choice]
 
