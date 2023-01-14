@@ -48,12 +48,22 @@ def run_query(query):
     rows = rows.fetchall()
     return rows
 
-sheet_url = st.secrets["public_gsheets_url"]
+# sheet_url = st.secrets["public_gsheets_url"]
 
-# print(sheet_url)
-rows = run_query(f'SELECT * FROM "{sheet_url}"')
-df = pd.DataFrame(rows)
+# # print(sheet_url)
+# rows = run_query(f'SELECT * FROM "{sheet_url}"')
+# df = pd.DataFrame(rows)
+# df = df.fillna("")
+
+
+SHEET_ID = '1Cr9CW_l2PmTdpc6hZaqmjgS_hYBblTn3kWBcBIQazDk'
+SHEET_NAME = 'Schedule'
+url = f'https://docs.google.com/spreadsheets/d/{SHEET_ID}/gviz/tq?tqx=out:csv&sheet={SHEET_NAME}'
+
+df = pd.read_csv(url)
 df = df.fillna("")
+
+
 
 # df = df.style.highlight_null(null_color="orange")
 # sheet_url2 = st.secrets["public_gsheets_url"]["test"]
