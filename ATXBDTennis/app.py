@@ -56,8 +56,7 @@ def run_query(query):
 # df = df.fillna("")
 
 
-SHEET_ID = '1Cr9CW_l2PmTdpc6hZaqmjgS_hYBblTn3kWBcBIQazDk'
-SHEET_NAME = 'Schedule'
+
 url = f'https://docs.google.com/spreadsheets/d/{SHEET_ID}/gviz/tq?tqx=out:csv&sheet={SHEET_NAME}'
 
 df = pd.read_csv(url)
