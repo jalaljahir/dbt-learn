@@ -6,6 +6,10 @@ import pandas as pd
 # import matplotlib.pyplot as plt
 # import datetime
 from gsheetsdb import connect
+import secret
+from secret import *
+
+
 
 
 st.set_page_config(page_title="ATXBDTENNIS2023", layout="wide")
