@@ -49,7 +49,8 @@ def run_query(query):
     return rows
 
 # sheet_url = st.secrets["public_gsheets_url"]
-sheet_url = 'https://docs.google.com/spreadsheets/d/1Cr9CW_l2PmTdpc6hZaqmjgS_hYBblTn3kWBcBIQazDk/edit#gid=0'
+sheet_url = str("https://docs.google.com/spreadsheets/d/1Cr9CW_l2PmTdpc6hZaqmjgS_hYBblTn3kWBcBIQazDk/edit#gid=0")
+sheet_url
 # print(sheet_url)
 rows = run_query(f'SELECT * FROM "{sheet_url}"')
 df = pd.DataFrame(rows)
