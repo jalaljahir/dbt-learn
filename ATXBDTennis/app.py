@@ -117,7 +117,7 @@ styles = [
     dict(selector="caption", props=[("caption-side", "bottom")])
 ]
 
-tab1, tab2, tab3, tab4, tab5 = st.tabs(["Welcome", "Schedule", "Schedule by Team", "Score", "Analytics"])
+tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(["Welcome", "Rules", "Schedule", "Schedule by Team", "Score", "Analytics"])
 
 with tab1:
     st.header("Welcome")
@@ -128,11 +128,24 @@ with tab1:
 
 
 with tab2:
+    st.header("Tournament Rules")
+    st.download_button(
+    label="Download Rules",
+    data='assets/Tennis-Rules-2022-Nov-15.pdf',
+    file_name='ATX-Tennis-Rules-2022.pdf',
+    # mime='text/csv',
+)
+    
+
+
+
+with tab3:
     st.header("Schedule")
     st.markdown(df.style.set_table_styles(styles).hide_index().highlight_null(null_color='red').to_html(), unsafe_allow_html=True)
 
 
-with tab3:
+with tab4:
+    st.header("Schedule by Team")
     url2 = f'https://docs.google.com/spreadsheets/d/{SHEET_ID}/gviz/tq?tqx=out:csv&sheet={SHEET_NAME2}'
 
     df2 = pd.read_csv(url2)
