@@ -5,14 +5,15 @@ import pandas as pd
 # import numpy as np
 # import matplotlib.pyplot as plt
 # import datetime
-from gsheetsdb import connect
+# from gsheetsdb import connect
 import secret
 from secret import *
+# from PIL import Image
 
 
 
 
-st.set_page_config(page_title="ATXBDTENNIS2023", layout="wide")
+st.set_page_config(page_title="ATXBDTENNIS2022", layout="wide")
 
 # '''
 
@@ -38,19 +39,19 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 # st.markdown('<div style="text-align: right;">Hello World!</div>', unsafe_allow_html=True)
 # st.markdown('<div style="text-align: justify;">Hello World!</div>', unsafe_allow_html=True)
 
-st.title(":tennis: :green[Austin Bangladeshi Tennis Tournament 2023] :tennis:")
+st.title(":tennis: :green[Austin Bangladeshi Tennis Tournament 2022] :tennis:")
 
 
 # Create a connection object.
-conn = connect()
+# conn = connect()
 
 # Perform SQL query on the Google Sheet.
 # Uses st.cache to only rerun when the query changes or after 10 min.
 # @st.cache(ttl=600)
-def run_query(query):
-    rows = conn.execute(query, headers=1)
-    rows = rows.fetchall()
-    return rows
+# def run_query(query):
+#     rows = conn.execute(query, headers=1)
+#     rows = rows.fetchall()
+#     return rows
 
 # sheet_url = st.secrets["public_gsheets_url"]
 
@@ -116,7 +117,57 @@ styles = [
     dict(selector="caption", props=[("caption-side", "bottom")])
 ]
 
-st.markdown(df.style.set_table_styles(styles).hide_index().highlight_null(null_color='red').to_html(), unsafe_allow_html=True)
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["Welcome", "Schedule", "Schedule by Team", "Score", "Analytics"])
+
+with tab1:
+    st.header("Welcome")
+    
+    # image_file = Image.open('assets/tennis_poster22.jpg')
+    image_file = ('assets/tennis_poster22.jpg')
+    st.image(image_file)
+
+
+with tab2:
+    st.header("Schedule")
+    st.markdown(df.style.set_table_styles(styles).hide_index().highlight_null(null_color='red').to_html(), unsafe_allow_html=True)
+
+
+with tab3:
+    url2 = f'https://docs.google.com/spreadsheets/d/{SHEET_ID}/gviz/tq?tqx=out:csv&sheet={SHEET_NAME2}'
+
+    df2 = pd.read_csv(url2)
+    df2 = df2.fillna("")
+    
+    captain = sorted(df2["Captain"].unique())
+    captain_choice = st.selectbox('Select Your Captain', captain)
+    df2 = df2[df2['Captain'].isin([captain_choice])]
+    st.markdown(df2.style.set_table_styles(styles).hide_index().highlight_null(null_color='red').to_html(), unsafe_allow_html=True)
+    
+
+
+
+
+
+
+
+# skills = sorted(df['Skills'].unique())
+# skills_choice = st.sidebar.selectbox('Select Skill ', skills)
+# # # years_choice = st.sidebar.selectbox('', years)
+# # # city_choice = st.sidebar.selectbox('', city)
+# # # state_choice = st.sidebar.selectbox('', state)
+
+# # df = df[df['Industry'].isin([ind_choice])]
+# df = df[df['Skills'].isin([skills_choice])]
+# # # df = df[df['cost'] < price_choice]
+
+
+
+
+# st.dataframe(df, height=500, use_container_width = True)
+
+
+
+
 
 
 # st.markdown(df.style.hide(axis="index").to_html(sparse_columns=False, bold_headers=True, bold_rows=True), unsafe_allow_html=True)
