@@ -178,16 +178,24 @@ with tab5:
     
 
 with tab6:
-    st.header("Semi-Final & Final Schedule by Team")
+    st.header("Semi-Final Schedule by Team")
     url3 = f'https://docs.google.com/spreadsheets/d/{SHEET_ID}/gviz/tq?tqx=out:csv&sheet={SHEET_NAME3}'
 
     df3 = pd.read_csv(url3)
     df3 = df3.fillna("")
-    df3 = df3[['Court', 'Time', 'Teams', 'Names', 'Captain', 'Opponent', 'Opponent Captain']]
+    # df3 = df3[df3['Match Type'] == "Semi Finals"]
+    # df3 = df3[['Match type', 'Court', 'Time', 'Teams', 'Names', 'Captain', 'Opponent', 'Opponent Captain']]
+    match = sorted(df3["Match Type"].unique())
+    match_choice = st.selectbox('Select Your Match Type', match)
     captain = sorted(df3["Captain"].unique())
     captain_choice = st.selectbox('Select Your Captain', captain)
     df3 = df3[df3['Captain'].isin([captain_choice])]
     st.markdown(df3.style.set_table_styles(styles).hide_index().highlight_null(null_color='red').to_html(), unsafe_allow_html=True)
+
+
+
+
+
 
 
 with tab7:
@@ -215,7 +223,7 @@ with tab7:
 
 
 with tab8:
-    st.header("Semi-Finals Point Table")
+    st.header("Finals Point Table")
     url9 = f'https://docs.google.com/spreadsheets/d/{SHEET_ID}/gviz/tq?tqx=out:csv&sheet={SHEET_NAME9}'
 
     df9 = pd.read_csv(url9)
@@ -224,7 +232,7 @@ with tab8:
     st.markdown(df9.style.set_table_styles(styles).hide_index().highlight_null(null_color='red').to_html(), unsafe_allow_html=True)
        
     
-    st.header("Semi-Finals Head to Head")
+    st.header("Finals Head to Head")
     url8 = f'https://docs.google.com/spreadsheets/d/{SHEET_ID}/gviz/tq?tqx=out:csv&sheet={SHEET_NAME8}'
 
     df8 = pd.read_csv(url8)
