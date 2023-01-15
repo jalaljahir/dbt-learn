@@ -97,8 +97,8 @@ styles = [
                                
                             #    ("width", "5000px")
                                ]),
-    dict(selector="td", props=[("color", "#999"),
-                               ("border", "1px solid #eee"),
+    dict(selector="td", props=[("color", "#000a03"),
+                               ("border", "1px solid #000a03"),
                                ("padding", "5px 5px"),
                                ("border-collapse", "collapse"),
                                ("font-size", "15px"),
@@ -117,7 +117,7 @@ styles = [
     dict(selector="caption", props=[("caption-side", "bottom")])
 ]
 
-tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(["Welcome", "Rules", "Schedule", "Schedule by Team", "Score", "Analytics"])
+tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs(["Welcome", "Rules", "Schedule", "Schedule by Team", "Group Score", "SF/F Schedule", "SF Score", "Finals Score"])
 
 with tab1:
     st.header("Welcome")
@@ -158,7 +158,84 @@ with tab4:
     
 
 
+with tab5:
+    st.header("Group Point Table")
+    url5 = f'https://docs.google.com/spreadsheets/d/{SHEET_ID}/gviz/tq?tqx=out:csv&sheet={SHEET_NAME5}'
 
+    df5 = pd.read_csv(url5)
+    df5 = df5.fillna("")
+    
+    st.markdown(df5.style.set_table_styles(styles).hide_index().highlight_null(null_color='red').to_html(), unsafe_allow_html=True)
+       
+    
+    st.header("Group Score - Head to Head")
+    url4 = f'https://docs.google.com/spreadsheets/d/{SHEET_ID}/gviz/tq?tqx=out:csv&sheet={SHEET_NAME4}'
+
+    df4 = pd.read_csv(url4)
+    df4 = df4.fillna("")
+    
+    st.markdown(df4.style.set_table_styles(styles).hide_index().highlight_null(null_color='red').to_html(), unsafe_allow_html=True)
+    
+
+with tab6:
+    st.header("Semi-Final & Final Schedule by Team")
+    url3 = f'https://docs.google.com/spreadsheets/d/{SHEET_ID}/gviz/tq?tqx=out:csv&sheet={SHEET_NAME3}'
+
+    df3 = pd.read_csv(url3)
+    df3 = df3.fillna("")
+    df3 = df3[['Court', 'Time', 'Teams', 'Names', 'Captain', 'Opponent', 'Opponent Captain']]
+    captain = sorted(df3["Captain"].unique())
+    captain_choice = st.selectbox('Select Your Captain', captain)
+    df3 = df3[df3['Captain'].isin([captain_choice])]
+    st.markdown(df3.style.set_table_styles(styles).hide_index().highlight_null(null_color='red').to_html(), unsafe_allow_html=True)
+
+
+with tab7:
+    st.header("Semi-Finals Point Table")
+    url7 = f'https://docs.google.com/spreadsheets/d/{SHEET_ID}/gviz/tq?tqx=out:csv&sheet={SHEET_NAME7}'
+
+    df7 = pd.read_csv(url7)
+    df7 = df7.fillna("")
+    
+    st.markdown(df7.style.set_table_styles(styles).hide_index().highlight_null(null_color='red').to_html(), unsafe_allow_html=True)
+       
+    
+    st.header("Semi-Finals Head to Head")
+    url6 = f'https://docs.google.com/spreadsheets/d/{SHEET_ID}/gviz/tq?tqx=out:csv&sheet={SHEET_NAME6}'
+
+    df6 = pd.read_csv(url6)
+    df6 = df6.fillna("")
+    
+    
+    df6 = df6[['Team 1', 'Team 1 Captain', 'Team 2', 'Team 2 Captain', 'Game Style', 'Team 1 Result', 'Team 2 Result', 'Team 1 Set Wins', 'Team 2 Set Wins', 'Team 1 Point', 'Team 2 Point']]
+    
+    
+    st.markdown(df6.style.set_table_styles(styles).hide_index().highlight_null(null_color='red').to_html(), unsafe_allow_html=True)
+     
+
+
+with tab8:
+    st.header("Semi-Finals Point Table")
+    url9 = f'https://docs.google.com/spreadsheets/d/{SHEET_ID}/gviz/tq?tqx=out:csv&sheet={SHEET_NAME9}'
+
+    df9 = pd.read_csv(url9)
+    df9 = df9.fillna("")
+    
+    st.markdown(df9.style.set_table_styles(styles).hide_index().highlight_null(null_color='red').to_html(), unsafe_allow_html=True)
+       
+    
+    st.header("Semi-Finals Head to Head")
+    url8 = f'https://docs.google.com/spreadsheets/d/{SHEET_ID}/gviz/tq?tqx=out:csv&sheet={SHEET_NAME8}'
+
+    df8 = pd.read_csv(url8)
+    df8 = df8.fillna("")
+    
+    
+    df8 = df8[['Team 1', 'Team 1 Captain', 'Team 2', 'Team 2 Captain', 'Game Style', 'Team 1 Result', 'Team 2 Result', 'Team 1 Set Wins', 'Team 2 Set Wins', 'Team 1 Point', 'Team 2 Point']]
+    
+    
+    st.markdown(df8.style.set_table_styles(styles).hide_index().highlight_null(null_color='red').to_html(), unsafe_allow_html=True)
+    
 
 
 
