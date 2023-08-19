@@ -5,3 +5,4 @@ https://www.youtube.com/watch?v=IaA9YNlg5hM&t=507s&ab_channel=DarshilParmar
 
 Data: 2021 Olympics in Tokyo
 https://www.kaggle.com/datasets/arjunprasadsarkhel/2021-olympics-in-tokyo
+comes in xlsx, convert to csv
